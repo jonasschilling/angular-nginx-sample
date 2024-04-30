@@ -7,7 +7,13 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:nginx-example-app": "node dist/nginx-example-app/server/server.mjs"
+    "serve:ssr:nginx-example-app": "node dist/nginx-example-app/server/server.mjs",
+    "build-image": "docker build -t nginx-example-app-docker-image .",
+    "remove-image": "docker rmi nginx-example-app-docker-image",
+    "run-container": "docker run --name nginx-example-app-docker-container -d -p 8080:80 nginx-example-app-docker-image",
+    "remove-container": "docker rm -f nginx-example-app-docker-container",
+    "containerize": "npm run build-image && npm run run-container",
+    "recontainerize": "npm run remove-container && npm run build-image && npm run run-container"
   },
   "private": true,
   "dependencies": {
